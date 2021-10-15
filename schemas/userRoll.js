@@ -15,6 +15,6 @@ const userSchema = new Schema({
 
 // https://www.geeksforgeeks.org/mongoose-mongoose-model-function/
 //First argument: name of the model. the method pluraizes the name and looks for a collection matching "users"
-const UserRoll = mongoose.model("Roll", userSchema);
+const UserRoll = mongoose.model("Roll_test", userSchema);
 
 module.exports = UserRoll;
