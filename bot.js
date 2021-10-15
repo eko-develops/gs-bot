@@ -4,8 +4,22 @@ const { Client, Intents } = require('discord.js');
 //Create a client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS]});
 
-require('dotenv').config();
-// const fs = require('fs');	//used to read commands folder
+require('dotenv').config(); //enviroment variables
+
+const fs = require('fs');	//used to read commands folder
+
+// eslint-disable-next-line no-undef
+client.commands = new Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter( file => file.endsWith('.js')); //read the commands folder and filter out files that dont have js extenstion
+
+//Set commands to the client.commands collection
+for (const file of commandFiles) {
+
+	const command = require(`./commands/${file}`);
+
+	client.commands.set(command.data.name, command);
+}
 
 const connectDb = require('./mongodb.js');
 
@@ -18,17 +32,17 @@ client.once('ready', () => {
 
 //The clients listens on the event that a message is sent from any channel
 client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
 
-	if( !interaction.isCommand()) return;
+	const command = client.commands.get(interaction.commandName);
 
-	const { commandName } = interaction;
+	if (!command) return;
 
-	if (commandName === 'ping') {
-		await interaction.reply('Pong!');
-	} else if (commandName === 'server') {
-		await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
-	} else if (commandName === 'user') {
-		await interaction.reply('User info.');
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
 
