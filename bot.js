@@ -1,14 +1,15 @@
 //Get the required classes
 const Client = require('./classes/Client');
+const Database = require('./classes/Database.js');
 
 //Create a client instance
 const client = new Client();
 
-client.start();	//call the start method from the Client class
+const db = new Database(process.env.MONGODB_SRV);	//create a database instance
 
-const connectDb = require('./mongodb.js');
+client.start();	//starts client connection from Client class
 
-connectDb();
+db.start(); //starts the database connection from Database class
 
 //The clients listens on the event that a message is sent from any channel
 client.on('interactionCreate', async interaction => {

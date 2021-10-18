@@ -24,7 +24,7 @@ class Client extends Discord.Client {
             console.log(`Command ${command} loaded`);
             this.commands.set(command.data.name, command);
         }); //read the commands folder, filter any files that dont end with js, 
-        console.log('commands loaded...');
+        console.log('***COMMANDS LOADED***');
         
         
         fs.readdirSync('./events').filter( file => file.endsWith('.js')).forEach( file => {
@@ -37,7 +37,7 @@ class Client extends Discord.Client {
                 this.on(event.name, (...args) => event.execute(...args));
             }
         }); //read the events folder, filter out files that dont have js extenstion, depending on the event type, fire it
-        console.log('events loaded...');
+        console.log('***EVENTS LOADED***');
         
         this.login(process.env.TEST_BOT_TOKEN);
     }
