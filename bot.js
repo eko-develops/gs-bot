@@ -4,11 +4,10 @@ const Database = require('./classes/Database.js');
 
 //Create a client instance
 const client = new Client();
-
+//Create a db instance with our mongoSRV
 const db = new Database(process.env.MONGODB_SRV);	//create a database instance
 
 client.start();	//starts client connection from Client class
-
 db.start(); //starts the database connection from Database class
 
 //The clients listens on the event that a message is sent from any channel
