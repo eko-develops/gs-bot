@@ -1,5 +1,5 @@
 //Get the required classes
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js');
 
 //Create a client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS]});
