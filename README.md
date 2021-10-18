@@ -21,10 +21,10 @@ The Discord bot has a growing library of custom commands. It can do things like 
 #### Technologies
 
 - discord.js - **12.5.1**   https://discord.js.org/
+    -Upgraded to v13
 - dotenv - **8.2.0**    https://www.npmjs.com/package/dotenv
 - fs    https://www.npmjs.com/package/fs
 - axios - **0.21.1**    https://www.npmjs.com/package/axios
-- @woocommerce/woocommerce-rest-api - **1.0.1** https://github.com/woocommerce/woocommerce-rest-api-js-lib
 
 [Back To The Top](#react-counter)
 
@@ -44,6 +44,7 @@ The Discord bot has a growing library of custom commands. It can do things like 
 
 ## To do
 
+- Upgrade from Discordjs v12 - v13 * working on it
 - ~~Connect to MongoDB~~
 - Add zombie hunt?
 - ~~Add weekly roll~~
