@@ -1,22 +1,25 @@
 require('dotenv').config(); //enviroment variables
 const Discord = require('discord.js');
 const fs = require('fs');	//used to read commands folder
-
+const Database = require('./Database.js');
 
 class Client extends Discord.Client {
-    constructor () {
+
+    #mongoSRV;
+
+    constructor (mongoSRV) {
         super({ intents: [Discord.Intents.FLAGS.GUILDS]});
 
+        this.#mongoSRV = mongoSRV;
         this.commands = new Discord.Collection();
     }
-
 
     /**
      * Reads commands folder and loads commands.
      * Reads events folder and loads events.
      * Fires Client.login after loading commands and events.
      */
-    start () {
+    botStart () {
         
         fs.readdirSync('./commands').filter( file => file.endsWith('.js')).forEach( file => {
             const command = require(`../commands/${file}`);
@@ -42,6 +45,9 @@ class Client extends Discord.Client {
         this.login(process.env.TEST_BOT_TOKEN);
     }
 
+    dbStart () {
+        Database.start(this.#mongoSRV);
+    }
 
 }
 
