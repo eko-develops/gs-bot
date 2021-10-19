@@ -1,6 +1,8 @@
 require('dotenv').config(); //enviroment variables
 const Discord = require('discord.js');
 const fs = require('fs');	//used to read commands folder
+
+//my classes
 const Database = require('./Database.js');
 
 class Client extends Discord.Client {
